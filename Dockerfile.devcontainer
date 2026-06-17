@@ -1,0 +1,35 @@
+FROM python:3.11-slim
+
+# System dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash \
+    git \
+    curl \
+    sudo \
+    tree \
+    cryptsetup \
+    jq \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# No-root user setup
+ARG USERNAME=vscode
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+RUN groupadd --gid $USER_GID $USERNAME \
+ && useradd --uid $USER_UID --gid $USER_GID -m -s /bin/bash $USERNAME \
+ && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
+ && chmod 0440 /etc/sudoers.d/$USERNAME
+
+USER $USERNAME
+WORKDIR /workspace
+ENV PATH="/home/$USERNAME/.local/bin:$PATH" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+COPY --chown=$USERNAME:$USERNAME requirements.txt /tmp/
+RUN pip install --user --no-cache-dir -r /tmp/requirements.txt
+
+ENV DEBIAN_FRONTEND=dialog
+
+CMD ["sleep", "infinity"]
