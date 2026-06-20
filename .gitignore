@@ -97,5 +97,5 @@ dmypy.json
 # Exploring
 Notebooks/
 bibliography/
-app/
 MNIST_prelabelling.md
+src/data
