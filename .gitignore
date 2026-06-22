@@ -98,4 +98,4 @@ dmypy.json
 Notebooks/
 bibliography/
 MNIST_prelabelling.md
-src/data
+app/src/data
