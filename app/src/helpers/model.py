@@ -1,8 +1,9 @@
 from tensorflow.keras import layers, models
+from typing import Tuple
+
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
-
 
 learn_rate:float = 0.001
 
@@ -45,7 +46,7 @@ def cnn_model(
     validation_split:float = 0.2,
     learning_rate:float = 0.001,
     visualization:bool = True
-) -> tf.keras.callbacks.History:
+) -> Tuple[tf.keras.callbacks.History, tf.keras.Model]:
     """
     It builds and trains a CNN for image classification.
             Args:
@@ -66,7 +67,10 @@ def cnn_model(
                 visualization:
                     If true, generates a plot in `app/output/accuracy_plot.png`
             Returns:
-                history model with epoch training
+                history:
+                    Object with training historial
+                model:
+                    Trained Keras model
     """
     
     model = models.Sequential([
@@ -118,4 +122,4 @@ def cnn_model(
         visualization_training_validation_accuracy(
             history
         )
-    return history
+    return history, model
