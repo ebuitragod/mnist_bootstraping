@@ -1,4 +1,5 @@
 from helpers import load_data as ld
+
 # datasets
 TRAINSET = ld.load_mnist_normalized(train=True)
 TESTSET = ld.load_mnist_normalized(train=False)
