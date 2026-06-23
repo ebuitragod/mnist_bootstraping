@@ -94,8 +94,4 @@ dmypy.json
 # Ruff cache
 .ruff_cache
 
-# Exploring
-Notebooks/
-bibliography/
-app/
-MNIST_prelabelling.md
+data/
