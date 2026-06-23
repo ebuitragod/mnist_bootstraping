@@ -1,5 +1,5 @@
 from helpers.model import cnn_model
-from helpers.embeddings import embedding_generation
+from helpers.embeddings import generation, projection_2d
 from constants import (
     SEED_IMAGES,
     SEED_LABEL,
@@ -13,8 +13,12 @@ history_model, initial_model = cnn_model(
     visualization=True
 )
 
-train_embeddings, seed_embeddings = embedding_generation(
+train_embeddings, seed_embeddings = generation(
     initial_model,
     TRAIN_IMAGES,
     SEED_IMAGES   
+)
+
+embeddings_2d = projection_2d(
+    train_embeddings
 )
