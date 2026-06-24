@@ -1,10 +1,12 @@
-from helpers.model import cnn_model
-from helpers.embeddings import generation, projection_2d
+
 from constants import (
     SEED_IMAGES,
     SEED_LABEL,
     TRAIN_IMAGES,
 )
+from helpers.clustering import get_kmeans_labels_and_visualize
+from helpers.embeddings import generation, projection_2d
+from helpers.model import cnn_model
 
 
 history_model, initial_model = cnn_model(
@@ -22,3 +24,8 @@ train_embeddings, seed_embeddings = generation(
 embeddings_2d = projection_2d(
     train_embeddings
 )
+
+pseudo_labels = get_kmeans_labels_and_visualize(
+    embeddings_2d, 
+    n_clusters=10,
+    )
