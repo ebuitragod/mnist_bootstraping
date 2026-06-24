@@ -4,7 +4,7 @@ from constants import (
     SEED_LABEL,
     TRAIN_IMAGES,
 )
-from helpers.clustering import get_kmeans_labels_and_visualize
+from helpers.clustering import get_kmeans_labels_and_visualize, assign_initial_labels_from_logistic_regression
 from helpers.embeddings import generation, projection_2d
 from helpers.model import cnn_model
 
@@ -28,4 +28,12 @@ embeddings_2d = projection_2d(
 pseudo_labels = get_kmeans_labels_and_visualize(
     embeddings_2d, 
     n_clusters=10,
+    )
+
+
+pseudo_labels, cluster_to_class = assign_initial_labels_from_logistic_regression(
+    train_embeddings, 
+    seed_embeddings, 
+    seed_labels = SEED_LABEL, # pyright: ignore[reportArgumentType]
+    n_clusters=10
     )
